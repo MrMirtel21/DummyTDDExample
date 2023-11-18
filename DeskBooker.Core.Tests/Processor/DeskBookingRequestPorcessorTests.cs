@@ -2,6 +2,9 @@
 using DeskBooker.Core.Domain;
 using DeskBooker.Core.Processor;
 using Moq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace DeskBooker.Core.Tests.Processor
 {
@@ -23,7 +26,7 @@ namespace DeskBooker.Core.Tests.Processor
                 Date = new DateTime(2020, 1, 28)
             };
 
-            _availableDesks = new List<Desk> { new Desk() { Id = 7} };
+            _availableDesks = new List<Desk> { new Desk() { Id = 7 } };
 
             _deskBookingRepositoryMock = new Mock<IDeskBookingRepository>();
             _deskRepositoryMock = new Mock<IDeskRepository>();
@@ -84,11 +87,11 @@ namespace DeskBooker.Core.Tests.Processor
             _deskBookingRepositoryMock.Verify(x => x.Save(It.IsAny<DeskBooking>()), Times.Never);
         }
         [Theory]
-        [InlineData(DeskBookingResultCode.Success,true)]
+        [InlineData(DeskBookingResultCode.Success, true)]
         [InlineData(DeskBookingResultCode.NoDeskAvailable, false)]
-        public void ShouldReturnExpectedResultCode(DeskBookingResultCode expectedResultCode, bool isDeskAvailable) 
+        public void ShouldReturnExpectedResultCode(DeskBookingResultCode expectedResultCode, bool isDeskAvailable)
         {
-            if (!isDeskAvailable) 
+            if (!isDeskAvailable)
             {
                 _availableDesks.Clear();
             }
@@ -106,9 +109,9 @@ namespace DeskBooker.Core.Tests.Processor
             {
                 _availableDesks.Clear();
             }
-            else 
+            else
             {
-                _deskBookingRepositoryMock.Setup(x => x.Save(It.IsAny<DeskBooking>())).Callback<DeskBooking>(deskBooking => 
+                _deskBookingRepositoryMock.Setup(x => x.Save(It.IsAny<DeskBooking>())).Callback<DeskBooking>(deskBooking =>
                 {
                     deskBooking.Id = expectedDeskBookingId.Value;
                 });
