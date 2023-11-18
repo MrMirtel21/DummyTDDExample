@@ -1,2 +1,2 @@
 # DummyTDDExample
-Dummy TDD example for the Pluralsight Course Test Driven Development in C# 8
+Dummy TDD example for the Pluralsight Course Test Driven Development in .NET 3.1
